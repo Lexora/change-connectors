@@ -1,5 +1,7 @@
 import requests
+import time
 import toml
+from datetime import datetime
 from pathlib import Path
 
 
@@ -18,14 +20,17 @@ response = requests.get(f"{BASE_URL}/connectors", headers=HEADERS)
 connectors = response.json().get("data", [])
 
 # *Step 2 & 3: Update each connector's schema setting*
-connectors = [x for x in  connectors["items"] if "github" in x['service']]
+connectors = [x for x in  connectors["items"] if "shopify" in x['service']]
 # n = [x for x in  connectors["items"] if "shopify" in x['service']]
+
 for connector in connectors:
     connector_id = connector["id"]
     patch_url = f"{BASE_URL}/connectors/{connector_id}/schemas"
     payload = {"schema_change_handling": "ALLOW_COLUMNS"}
-    update_response = requests.patch(patch_url, headers=HEADERS, json=payload)
+    time.sleep(0.5)
+    update_response = requests.patch(patch_url, headers=HEADERS, json=payload)    
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")    
     if update_response.status_code == 200:
-        print(f"Successfully updated connector {connector_id}")
+        print(f"[{timestamp}] Successfully updated connector {connector_id}")
     else:
-        print(f"Failed to update connector {connector_id}", update_response.json())
+        print(f"[{timestamp}] Failed to update connector {connector_id}", update_response.json())
