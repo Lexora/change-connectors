@@ -11,14 +11,15 @@ WORKDIR /app
 # Install Poetry
 RUN pip install --no-cache-dir poetry
 
-# Copy project files
+# Copy dependency definitions first (for better caching)
 COPY pyproject.toml poetry.lock* /app/
 
-# Install dependencies
+# Install dependencies (no virtualenv, installs into container env)
 RUN poetry config virtualenvs.create false \
  && poetry install --no-root --no-interaction --no-ansi
 
-# Copy the rest of the code
+# Copy the rest of the application code
 COPY . /app
 
-# Default c
+# Default command (edit as needed)
+CMD ["python", "main.py"]
