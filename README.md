@@ -2,7 +2,7 @@ Ensure
 - [Docker](https://www.docker.com/get-started) installed on your machine.
 
 1. clone repository
-2. Provide Fivetran b64_api_key API Credentials to creds.toml
+2. Input the Fivetran b64_api_key API Credentials to env.toml
 3. Build the Docker Image: from the Root directory of the project run: 
     ```
     docker build -t change-connectors . 
