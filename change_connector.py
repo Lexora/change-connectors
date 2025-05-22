@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 BASE_DIR = Path(__file__).resolve().parent
-secrets_path = BASE_DIR / "creds.toml"
+secrets_path = BASE_DIR / "env.toml"
 secrets = toml.load(secrets_path)
 
 # api_key = secrets["api_keys"]["api_key"]
