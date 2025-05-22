@@ -22,4 +22,4 @@ RUN poetry config virtualenvs.create false \
 COPY . /app
 
 # Default command (edit as needed)
-CMD ["python", "main.py"]
+CMD ["python", "change_connectors.py"]
